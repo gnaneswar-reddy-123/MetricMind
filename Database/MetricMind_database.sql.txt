@@ -1,0 +1,52 @@
+CREATE DATABASE IF NOT EXISTS metricmind_db;
+
+USE metricmind_db;
+
+
+CREATE TABLE customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    segment VARCHAR(50)
+);
+
+
+CREATE TABLE products (
+    product_id VARCHAR(20) PRIMARY KEY,
+    product_name VARCHAR(100),
+    category VARCHAR(50)
+);
+
+
+CREATE TABLE regions (
+    region_id INT AUTO_INCREMENT PRIMARY KEY,
+    state VARCHAR(50),
+    region VARCHAR(50)
+);
+
+
+CREATE TABLE sales_fact (
+
+    sales_id INT AUTO_INCREMENT PRIMARY KEY,
+
+    customer_id INT,
+    product_id VARCHAR(20),
+    region_id INT,
+
+    sales DECIMAL(10,2),
+    quantity INT,
+    discount DECIMAL(5,2),
+    profit DECIMAL(10,2),
+
+    CONSTRAINT fk_customer
+    FOREIGN KEY(customer_id)
+    REFERENCES customers(customer_id),
+
+    CONSTRAINT fk_product
+    FOREIGN KEY(product_id)
+    REFERENCES products(product_id),
+
+    CONSTRAINT fk_region
+    FOREIGN KEY(region_id)
+    REFERENCES regions(region_id)
+
+);
