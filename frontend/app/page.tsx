@@ -329,10 +329,9 @@ loadKpis();
             <label>Region</label>
             <select value={region} onChange={(e) => setRegion(e.target.value)}>
               <option>Europe</option>
-              <option>Asia</option>
+              <option>Asia Pacific</option>
               <option>North America</option>
               <option>South America</option>
-              <option>Africa</option>
             </select>
           </div>
 
