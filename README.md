@@ -463,6 +463,40 @@ Detailed weekly progress is available in the `docs` folder.
 \* Improved AI-generated recommendations
 
 
+## Project Screenshots
+
+### Dashboard
+
+![MetricMind Dashboard](screenshots/dashboard.png)
+
+The main MetricMind dashboard displays governed business KPIs including Total Revenue, Total Profit, Total Cost, and Profit Margin, along with Revenue by Region and Revenue Trend visualizations.
+
+### Ask MetricMind
+
+![Ask MetricMind](screenshots/ask-metricmind.png)
+
+Users can ask business questions in natural language. The system maps the request to approved semantic metrics and valid dataset values before returning the result.
+
+### Root Cause Analysis
+
+![Root Cause Analysis](screenshots/root-cause-analysis.png)
+
+The Root Cause Analysis module analyzes business performance for a selected region and time period and identifies the primary factor affecting profitability.
+
+### Business Recommendations
+
+![Business Recommendations](screenshots/recommendations.png)
+
+Based on the analytical results, MetricMind generates actionable business recommendations to help address identified performance issues.
+
+### API Verification
+
+![API Verification](screenshots/api-verification.png)
+
+The backend API was tested using the query **"Show me European sales"**. MetricMind correctly identified the approved metric as **Revenue**, mapped the region to **Europe**, and returned the governed analytical result.
+
+
+
 
 \---
 
