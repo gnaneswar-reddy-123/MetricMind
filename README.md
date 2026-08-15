@@ -496,6 +496,31 @@ Based on the analytical results, MetricMind generates actionable business recomm
 The backend API was tested using the query **"Show me European sales"**. MetricMind correctly identified the approved metric as **Revenue**, mapped the region to **Europe**, and returned the governed analytical result.
 
 
+## Automated Governance Tests
+
+MetricMind includes automated tests to verify semantic governance and metric consistency.
+
+Run the tests from the backend folder:
+
+```powershell
+python -m pytest tests\test_governance.py -v
+```
+
+Latest result:
+
+```text
+4 passed
+```
+
+The automated tests verify:
+
+* Revenue returns consistent results across repeated governed queries
+* Unsupported metrics such as `salary` are rejected
+* Region aliases such as `asia` correctly map to `Asia Pacific`
+* Only approved metrics are exposed: Revenue, Cost, Profit, and Margin
+
+
+
 ## System Architecture
 
 MetricMind follows a governed end-to-end analytics architecture. User requests flow from the Next.js dashboard through the FastAPI backend, where the Semantic Governance Layer validates approved metrics, maps valid regions, and applies query limits before analytics are executed on the MySQL sales database.
