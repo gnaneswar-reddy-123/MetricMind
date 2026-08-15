@@ -255,65 +255,155 @@ loadKpis();
         </div>
       </section>
 
-      {result && (
-        <section className="card result-card">
-          <h2>Analysis Result</h2>
+{result && (
+  <section className="card result-card">
+    <h2>Analysis Result</h2>
 
-          {result.error ? (
-            <p className="error">{result.error}</p>
-          ) : (
-            <div className="metrics-grid">
-              <div className="metric-item">
-                <span>QUESTION</span>
-                <strong>{result.question}</strong>
-              </div>
+    {result.error ? (
+      <p className="error">{result.error}</p>
+    ) : result.workflow === "multi_step_margin_analysis" ? (
+      <>
+        <div className="metrics-grid">
+          <div className="metric-item">
+            <span>QUESTION</span>
+            <strong>{result.question}</strong>
+          </div>
 
-              <div className="metric-item">
-                <span>METRIC</span>
-                <strong>{result.understood_metric}</strong>
-              </div>
+          <div className="metric-item">
+            <span>METRIC</span>
+            <strong>{result.understood_metric}</strong>
+          </div>
 
-              <div className="metric-item">
-                <span>REGION</span>
-                <strong>{result.understood_region || "All Regions"}</strong>
-              </div>
+          <div className="metric-item">
+            <span>REGION</span>
+            <strong>{result.understood_region}</strong>
+          </div>
 
-              <div className="metric-item highlight">
-                <span>{result.result?.label?.toUpperCase() || "VALUE"}</span>
-                <strong>
-                  {result.result?.value?.toLocaleString()}
-                </strong>
-              </div>
-              <div className="button-row">
-  <button
-    className="primary-button"
-    onClick={() =>
-      alert(
-        result.result?.generated_sql ||
-          "SQL information is not available."
-      )
-    }
-  >
-    View SQL
-  </button>
+          <div className="metric-item highlight">
+            <span>MARGIN</span>
+            <strong>
+              {result.result?.analysis?.margin_percentage ?? 0}%
+            </strong>
+          </div>
+        </div>
 
-  <button
-    className="success-button"
-    onClick={() =>
-      alert(
-        `GET http://127.0.0.1:8000/api/agent/ask?question=${encodeURIComponent(
-          result.question || question
-        )}`
-      )
-    }
-  >
-    View API Call
-  </button>
-</div>
-            </div>
-          )}
-        </section>
-      )}
+        <div className="metrics-grid four">
+          <div className="metric-item">
+            <span>REVENUE</span>
+            <strong>
+              ₹{result.result?.analysis?.total_revenue?.toLocaleString()}
+            </strong>
+          </div>
+
+          <div className="metric-item">
+            <span>TOTAL COST</span>
+            <strong>
+              ₹{result.result?.analysis?.total_cost?.toLocaleString()}
+            </strong>
+          </div>
+
+          <div className="metric-item">
+            <span>SHIPPING COST</span>
+            <strong>
+              ₹{result.result?.analysis?.shipping_cost?.toLocaleString()}
+            </strong>
+          </div>
+
+          <div className="metric-item">
+            <span>MATERIAL COST</span>
+            <strong>
+              ₹{result.result?.analysis?.material_cost?.toLocaleString()}
+            </strong>
+          </div>
+        </div>
+
+        <div className="insight-box">
+          <p>
+            <strong>Period:</strong>{" "}
+            Q{result.understood_quarter} {result.understood_year}
+          </p>
+
+          <p>
+            <strong>Severity:</strong>{" "}
+            {result.result?.root_cause?.severity}
+          </p>
+
+          <p>
+            <strong>Primary Cause:</strong>{" "}
+            {result.result?.root_cause?.primary_cause}
+          </p>
+
+          <p>
+            <strong>Explanation:</strong>{" "}
+            {result.result?.root_cause?.explanation}
+          </p>
+
+          <p>
+            <strong>Conclusion:</strong>{" "}
+            {result.result?.conclusion}
+          </p>
+        </div>
+      </>
+    ) : (
+      <>
+        <div className="metrics-grid">
+          <div className="metric-item">
+            <span>QUESTION</span>
+            <strong>{result.question}</strong>
+          </div>
+
+          <div className="metric-item">
+            <span>METRIC</span>
+            <strong>{result.understood_metric}</strong>
+          </div>
+
+          <div className="metric-item">
+            <span>REGION</span>
+            <strong>
+              {result.understood_region || "All Regions"}
+            </strong>
+          </div>
+
+          <div className="metric-item highlight">
+            <span>
+              {result.result?.label?.toUpperCase() || "VALUE"}
+            </span>
+            <strong>
+              {result.result?.value?.toLocaleString()}
+            </strong>
+          </div>
+        </div>
+
+        <div className="button-row">
+          <button
+            className="primary-button"
+            onClick={() =>
+              alert(
+                result.result?.generated_sql ||
+                  "SQL information is not available."
+              )
+            }
+          >
+            View SQL
+          </button>
+
+          <button
+            className="success-button"
+            onClick={() =>
+              alert(
+                `GET http://127.0.0.1:8000/api/agent/ask?question=${encodeURIComponent(
+                  result.question || question
+                )}`
+              )
+            }
+          >
+            View API Call
+          </button>
+        </div>
+      </>
+    )}
+  </section>
+)}
 
       <section className="card">
         <div className="section-heading">
