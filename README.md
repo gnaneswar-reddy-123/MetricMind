@@ -496,6 +496,26 @@ Based on the analytical results, MetricMind generates actionable business recomm
 The backend API was tested using the query **"Show me European sales"**. MetricMind correctly identified the approved metric as **Revenue**, mapped the region to **Europe**, and returned the governed analytical result.
 
 
+## System Architecture
+
+MetricMind follows a governed end-to-end analytics architecture. User requests flow from the Next.js dashboard through the FastAPI backend, where the Semantic Governance Layer validates approved metrics, maps valid regions, and applies query limits before analytics are executed on the MySQL sales database.
+
+![MetricMind Architecture](docs/architecture/metricmind-architecture.png)
+
+### Architecture Flow
+
+**User → Next.js Frontend → FastAPI Backend → Semantic Governance Layer → MySQL Database → Governed Analytics Results**
+
+The architecture supports:
+
+* Governed metrics: Revenue, Cost, Profit, and Margin
+* Natural-language business queries
+* Valid region mapping
+* Invalid metric rejection
+* Query governance and row limits
+* Root Cause Analysis
+* Business recommendations
+* Revenue charts and trend analysis
 
 
 \---
